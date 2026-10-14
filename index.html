@@ -235,7 +235,10 @@
   .cv canvas { width: 100% !important; height: 100% !important; display: block; }
   .ctake { font-size: 11.5px; color: #333; line-height: 1.45; margin-top: 8px; padding-top: 7px; border-top: 1px solid #f0f0f0; }
   .ctake b { font-weight: 700; }
-  .cnote { font-size: 10px; font-style: italic; color: #aaa; margin-top: 4px; }
+  .cdef { font-size: 11.5px; color: #333; line-height: 1.45; margin-top: 6px; }
+.cdef b { font-weight: 700; }
+.cdef-t { margin-top: 4px; }
+.cnote { font-size: 10px; font-style: italic; color: #aaa; margin-top: 4px; }
   .mc-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .mc { background: var(--cb); border: 1px solid #d4d4d4; border-radius: 6px; padding: 10px; }
   .mc-l { font-size: 9.5px; color: #666; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; line-height: 1.3; }
@@ -538,15 +541,25 @@
         </div>
         <div class="chart-box wide">
           <div class="chart-top"><div class="chart-title">Hedge fund leverage</div></div>
-          <div class="chart-unit">Mean ratio, quarterly</div>
+          <div class="chart-unit">Mean ratio (x), quarterly</div>
           <div class="cv" style="height:250px"><canvas id="c-hf"></canvas></div>
           <div class="ctake">Gross leverage at <b>~9,8x</b>, a record, and skewed to the largest funds.</div>
+          <div class="cdef">
+            <div><b>Gross leverage</b> = Gross notional exposure / NAV</div>
+            <div><b>Balance sheet leverage</b> = Gross asset value / NAV</div>
+            <div class="cdef-t">Gross notional exposure adds the full notional value of derivatives (futures, swaps, options) to on-balance-sheet assets, while gross asset value only counts the margin posted on them. The gap between the two lines therefore reflects leverage taken through derivatives.</div>
+          </div>
         </div>
         <div class="chart-box wide">
           <div class="chart-top"><div class="chart-title">Bank securities fair value gains/losses</div></div>
-          <div class="chart-unit">AFS + HTM, billions of dollars, semiannual</div>
+          <div class="chart-unit">Fair value minus amortized cost, billions of dollars, semiannual</div>
           <div class="cv" style="height:250px"><canvas id="c-fv"></canvas></div>
           <div class="ctake">Losses narrowed to <b>~$300 bn</b> from ~$690 bn, still sensitive to long rates.</div>
+          <div class="cdef">
+            <div><b>AFS (available-for-sale):</b> securities banks may sell before maturity. Carried at fair value, so price changes show up in equity.</div>
+            <div><b>HTM (held-to-maturity):</b> securities banks intend to keep until maturity. Carried at amortized cost, so losses are not recognized unless the bank is forced to sell.</div>
+            <div class="cdef-t"><b>Bars</b> = Fair value − Amortized cost of both portfolios combined. When rates rise, bond prices fall and losses widen: they remain a hidden risk if a bank has to sell, as happened with SVB in 2023.</div>
+          </div>
         </div>
       </div>
     </div>
@@ -603,7 +616,7 @@
   </div>
 
   <div class="manual-row">
-    <button class="manual-btn" onclick="openManual()">Manual de actualización</button>
+    <button class="manual-btn" onclick="openManual()">Manual de Actualización</button>
   </div>
 
 </div>
@@ -612,7 +625,7 @@
 <div class="modal-overlay" id="manual-modal" onclick="if(event.target===this)closeManual()">
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="manual-title">
     <button class="modal-close" onclick="closeManual()" aria-label="Cerrar">&times;</button>
-    <div class="modal-title" id="manual-title">Manual de actualización</div>
+    <div class="modal-title" id="manual-title">Manual de Actualización</div>
     <div class="modal-sub">Cómo agregar el semestre más reciente al tracker</div>
     <ol class="modal-steps">
       <li class="modal-step"><span class="num">1.</span><span><b>Entrar</b> a <span class="hl">federalreserve.gov</span> → Publications → Financial Stability Report y descargar el <b>PDF</b> del último reporte.</span></li>
@@ -663,7 +676,7 @@ const ED = ["May '21","Nov '21","May '22","Nov '22","May '23","Oct '23","Apr '24
 const SV = ["S'21","F'21","S'22","F'22","S'23","F'23","S'24","F'24","S'25","F'25","S'26"];
 const TH1 = { 'Persistent inflation':[42,65,68,62,56,72,72,33,41,43,45], 'Geopolitics':[33,31,77,42,56,28,32,46,23,48,75], 'Fiscal debt sustainability':[null,null,null,null,24,44,40,54,50,30,30], 'Risk asset correction':[33,23,50,null,null,null,null,29,36,30,35] };
 const TH2 = { 'Banking-sector stress':[null,null,null,null,56,56,44,25,23,null,null], 'Policy uncertainty':[null,null,null,null,null,null,60,46,50,61,20], 'Private credit':[null,null,null,null,null,null,null,null,18,22,50], 'Artificial intelligence':[null,null,null,null,null,null,null,null,null,30,50] };
-const SURV = [['Geopolitical risks',75,48],['Oil shock',70,0],['Artificial intelligence',50,30],['Private credit',50,22],['Persistent inflation; tightening',45,43],['Risk asset correction',35,30],['Fiscal debt sustainability',30,30],['Policy uncertainty',20,61],['Cyberattacks',20,17],['Higher long-term rates',20,43],['Market liquidity strains',15,0],['Labor market weakness',10,0],['Basis trade',10,0],['U.S. dollar depreciation',0,22],['Foreign divestment from U.S.',0,22],['Money market stress',0,17]];
+const SURV = [['Geopolitical risks', 75, 48], ['Oil shock', 70, 0], ['Artificial intelligence', 50, 30], ['Private credit', 50, 22], ['Persistent inflation; tightening', 45, 43], ['Risk asset correction', 35, 30], ['Fiscal debt sustainability', 30, 30], ['Policy uncertainty', 20, 61], ['Cyberattacks', 20, 17], ['Higher long-term rates', 20, 43]];
 const HM = {
   'Asset valuations':           ['E','E','N','M','M','N','E','E','N','E','E'],
   'Business & household debt':  ['N','M','M','M','M','M','M','M','M','M','M'],
@@ -711,21 +724,26 @@ const DEFS = {
     options: baseOpts({scales:{x:linX(2000,2026.5,5), y:{min:0,max:10,ticks:{stepSize:2}}}}) }),
   'c-stab': () => ({ type:'line', data:{datasets:[L('Stablecoins',DATA.stab,C.s,{fill:'origin',backgroundColor:'rgba(93,112,130,.12)'})]},
     options: baseOpts({scales:{x:linX(2021,2026.5,1), y:{min:0,max:350,ticks:{stepSize:50}}}}) }),
-  'c-surv': () => survCfg(SURV,'Spring 2026','Fall 2025'),
-  'c-surv-evo': () => { const e=EVO[evoIdx]; return survCfg(e.rows,e.cur,e.prev); }
+  'c-surv': () => survCfg(trimSurv(SURV),'Spring 2026','Fall 2025'),
+  'c-surv-evo': () => { const e=EVO[evoIdx]; return survCfg(trimSurv(e.rows),e.cur,e.prev); }
 };
 
 const EVO = [{"ed":"May '21","cur":"Spring 2021","prev":"Fall 2020","rows":[["Vaccine-resistant variants",58,0],["Sharp rise in real interest rates",50,12],["Inflation surge",42,0],["U.S.–China tensions",33,25],["Risky asset valuations/correction",33,0],["TGA drawdown/debt ceiling",25,0],["Cyber attacks",21,8],["Reach for yield/leverage",21,0],["Cryptocurrencies/stablecoins",21,0],["Under-regulated nonbanks",17,0],["SLR extension",17,0],["EM stress",17,0],["Bank asset quality",13,0],["CRE",13,0],["U.S. political uncertainty",0,71],["Corporate & SME stress/defaults",0,62],["Insufficient fiscal stimulus",0,54],["COVID resurgence",0,54],["Stretched asset valuations",0,29],["Inflation surprises",0,21],["USD collapse/currency war",0,21],["Monetary policy space/efficacy",0,17],["Bank asset quality/bank profitability",0,17],["CRE defaults/CMBS stress",0,17],["Geopolitical risks",0,12],["Brexit",0,8],["LIBOR transition",0,8]]},{"ed":"Nov '21","cur":"Fall 2021","prev":"Spring 2021","rows":[["Persistent inflation; monetary tightening",65,0],["Vaccine-resistant variants",50,58],["China regulatory/property risks",46,0],["U.S.–China tensions",31,33],["Cryptocurrencies/stablecoins",27,21],["Climate/weather",23,0],["Risk-asset valuations/correction",23,0],["Political uncertainty",19,0],["Fiscal cliff effects",19,0],["Cyberattacks",15,21],["Real yield spike/taper tantrum",15,0],["EME risks",15,0],["China slowdown",15,0],["Sharp rise in real interest rates",0,50],["Inflation surge",0,42],["Risky asset valuations/correction",0,33],["TGA drawdown/debt ceiling",0,25],["Reach for yield/leverage",0,21],["Under-regulated nonbanks",0,17],["SLR extension",0,17],["EM stress",0,17],["Bank asset quality",0,13],["CRE",0,13]]},{"ed":"May '22","cur":"Spring 2022","prev":"Fall 2021","rows":[["Russian invasion of Ukraine",77,0],["Persistent inflation; monetary tightening",68,65],["Risk asset valuations/correction",50,23],["Foreign divestment from U.S. assets",41,0],["Higher energy prices",41,0],["Corporate credit stress",36,0],["Elevated inflation regime",36,0],["Cyberattacks",32,15],["U.S.-China tensions",32,31],["COVID-19 variants",27,0],["Central counterparty/exchange distress",18,0],["Cryptocurrencies/stablecoins",18,27],["China growth slowdown",18,0],["Real estate correction",18,0],["Vaccine-resistant variants",0,50],["China regulatory/property risks",0,46],["Climate/weather",0,23],["Political uncertainty",0,19],["Fiscal cliff effects",0,19],["Real yield spike/taper tantrum",0,15],["EME risks",0,15],["China slowdown",0,15]]},{"ed":"Nov '22","cur":"Fall 2022","prev":"Spring 2022","rows":[["Persistent inflation; monetary tightening",62,68],["Market liquidity strains and volatility",54,0],["Higher energy prices",54,41],["China–Taiwan conflict",42,0],["Under-regulated nonbanks",38,0],["Europe recession",31,0],["Supply chain disruptions",27,0],["Value of U.S. dollar",27,0],["Emerging market economy risks",27,0],["Russian invasion of Ukraine",0,77],["Risk asset valuations/correction",0,50],["Foreign divestment from U.S. assets",0,41],["Corporate credit stress",0,36],["Elevated inflation regime",0,36],["Cyberattacks",0,32],["U.S.-China tensions",0,32],["COVID-19 variants",0,27],["Central counterparty/exchange distress",0,18],["Cryptocurrencies/stablecoins",0,18],["China growth slowdown",0,18],["Real estate correction",0,18]]},{"ed":"May '23","cur":"Spring 2023","prev":"Fall 2022","rows":[["Persistent inflation; monetary tightening",56,62],["Banking-sector stress",56,0],["U.S.–China tensions",56,0],["Commercial and residential real estate",52,0],["Russia–Ukraine war",52,0],["Debt limit",48,0],["Market liquidity strains and volatility",40,54],["Under-regulated nonbanks",24,38],["Fiscal debt sustainability",24,0],["Higher energy prices",0,54],["China–Taiwan conflict",0,42],["Europe recession",0,31],["Supply chain disruptions",0,27],["Value of U.S. dollar",0,27],["Emerging market economy risks",0,27]]},{"ed":"Oct '23","cur":"Fall 2023","prev":"Spring 2023","rows":[["Persistent inflation; monetary tightening",72,56],["Commercial and residential real estate",72,52],["Banking-sector stress",56,56],["Market liquidity strains and volatility",56,40],["Fiscal debt sustainability",44,24],["China economy/financial sector",44,0],["Under-regulated nonbanks",36,24],["Foreign divestment from U.S. assets",32,0],["Higher long-term rates",28,0],["Leverage buildup",28,0],["Russia–Ukraine war",28,52],["U.S.–China tensions",0,56],["Debt limit",0,48]]},{"ed":"Apr '24","cur":"Spring 2024","prev":"Fall 2023","rows":[["Persistent inflation; monetary tightening",72,72],["Policy uncertainty",60,0],["Commercial and residential real estate",56,72],["Banking-sector stress",44,56],["Fiscal debt sustainability",40,44],["Market liquidity strains and volatility",36,56],["Treasury market dysfunction/basis trade",32,0],["U.S.–China tensions",32,0],["Middle East tensions",32,0],["Cyberattacks",28,0],["Severe U.S./global recession",28,0],["China economy/financial sector",0,44],["Under-regulated nonbanks",0,36],["Foreign divestment from U.S. assets",0,32],["Higher long-term rates",0,28],["Leverage buildup",0,28],["Russia–Ukraine war",0,28]]},{"ed":"Nov '24","cur":"Fall 2024","prev":"Spring 2024","rows":[["Fiscal debt sustainability",54,40],["Middle East tensions",46,32],["Policy uncertainty",46,60],["U.S. recession",38,0],["Risks to global trade",33,0],["Persistent inflation; monetary tightening",33,72],["Risk asset/valuations correction",29,0],["Cyberattacks",25,28],["Russia–Ukraine war",25,0],["Banking-sector stress",25,44],["Chinese economic weakness",25,0],["Market liquidity strains and volatility",25,36],["Commercial and residential real estate",21,56],["Treasury market dysfunction/basis trade",0,32],["U.S.–China tensions",0,32],["Severe U.S./global recession",0,28]]},{"ed":"Apr '25","cur":"Spring 2025","prev":"Fall 2024","rows":[["Risks to global trade",73,33],["Policy uncertainty",50,46],["Fiscal debt sustainability",50,54],["Persistent inflation; monetary tightening",41,33],["Risk asset/valuations correction",36,29],["Treasury market functioning",27,0],["U.S. recession",23,38],["Banking-sector stress",23,25],["Geopolitical risks",23,0],["Foreign divestment from U.S. assets",23,0],["Private credit stress",18,0],["Nonbank financial institution stress",14,0],["Value of U.S. dollar",14,0],["Corporate credit stress",14,0],["Middle East tensions",0,46],["Cyberattacks",0,25],["Russia–Ukraine war",0,25],["Chinese economic weakness",0,25],["Market liquidity strains and volatility",0,25],["Commercial and residential real estate",0,21]]},{"ed":"Nov '25","cur":"Fall 2025","prev":"Spring 2025","rows":[["Policy uncertainty",61,50],["Geopolitical risks",48,23],["Persistent inflation; monetary tightening",43,41],["Higher long-term rates",43,0],["Artificial intelligence",30,0],["Asset price declines",30,0],["Fiscal debt sustainability",30,50],["U.S. dollar depreciation",22,0],["Private credit",22,0],["Foreign divestment from U.S. assets",22,23],["Money market stress",17,0],["Cyberattacks",17,0],["Risks to global trade",0,73],["Risk asset/valuations correction",0,36],["Treasury market functioning",0,27],["U.S. recession",0,23],["Banking-sector stress",0,23],["Private credit stress",0,18],["Nonbank financial institution stress",0,14],["Value of U.S. dollar",0,14],["Corporate credit stress",0,14]]}];
 let evoIdx = EVO.length-1;
-const ROWH = 40;
+const ROWH = 46;
 function survH(n){ return n*ROWH+50; }
-document.getElementById('surv-cv').style.height=survH(SURV.length)+'px';
-function survCfg(rows, curLbl, prevLbl){ return { type:'bar', data:{labels:rows.map(r=>r[0]), datasets:[
-      {label:curLbl,data:rows.map(r=>r[1]),backgroundColor:C.g,borderRadius:2,barThickness:16,categoryPercentage:0.9,barPercentage:0.95,datalabels:DL(v=>v?v+'%':'',{anchor:'end',align:'right',font:{family:F,size:10.5,weight:'700'}})},
-      {label:prevLbl,data:rows.map(r=>r[2]),backgroundColor:C.s,borderRadius:2,barThickness:16,categoryPercentage:0.9,barPercentage:0.95,datalabels:DL(v=>v?v+'%':'',{anchor:'end',align:'right',color:C.s,font:{family:F,size:10,weight:'700'}})}]},
-    options: baseOpts({indexAxis:'y', layout:{padding:{right:26}}, plugins:{legend:{display:true,position:'top'}}, scales:{x:{min:0,max:80,grid:{color:'#eee'},ticks:{stepSize:20,callback:v=>v+'%'}}, y:{grid:{display:false},afterFit:s=>{s.width=250;},ticks:{autoSkip:false,crossAlign:'far',font:{family:F,size:11,weight:'700'},color:'#333'}}}}) }; }
+// Criterio: mostrar riesgos hasta el último que tenga doble barra (dato en ambas encuestas)
+function trimSurv(rows){ let k=-1; rows.forEach((r,i)=>{ if(r[1]&&r[2]) k=i; }); return k<0?rows:rows.slice(0,k+1); }
+document.getElementById('surv-cv').style.height=survH(trimSurv(SURV).length)+'px';
+function survCfg(rows, curLbl, prevLbl){
+  const lblFont={family:F,size:10,weight:'700'};
+  const ds=(lbl,idx,col,lcol)=>({label:lbl,data:rows.map(r=>r[idx]||null),backgroundColor:col,borderRadius:0,inflateAmount:0,barThickness:16,categoryPercentage:1,barPercentage:1,
+      datalabels:DL(v=>v?v+'%':'',{anchor:'end',align:'right',offset:4,color:lcol,font:lblFont})});
+  const snap={id:'snapBars',afterDatasetsUpdate(ch){ const ys=ch.scales.y; ch.data.datasets.forEach((d,k)=>{ ch.getDatasetMeta(k).data.forEach((el,i)=>{ const c=Math.round(ys.getPixelForValue(i)); el.y = k===0 ? c-9 : c+9; el.height=16; }); }); }};
+  return { type:'bar', data:{labels:rows.map(r=>r[0]), datasets:[ds(curLbl,1,C.g,'#333'), ds(prevLbl,2,C.s,C.s)]}, plugins:[snap],
+    options: baseOpts({indexAxis:'y', layout:{padding:{right:26}}, plugins:{legend:{display:true,position:'top'}}, scales:{x:{min:0,max:80,grid:{color:'#eee'},border:{display:true,color:'#ccc'},ticks:{stepSize:20,callback:v=>v+'%'}}, y:{grid:{display:false},border:{display:true,color:'#ccc'},afterFit:s=>{s.width=250;},ticks:{autoSkip:false,crossAlign:'far',font:{family:F,size:11,weight:'700'},color:'#333'}}}}) }; }
 function buildEvoBtns(){ document.getElementById('evo-btns').innerHTML = EVO.map((e,i)=>'<button class="evo-toggle'+(i===evoIdx?' active':'')+'" onclick="setEvo('+i+')">'+e.ed+'</button>').join(''); }
-function setEvo(i){ evoIdx=i; buildEvoBtns(); const e=EVO[i]; document.getElementById('evo-cv').style.height=survH(e.rows.length)+'px'; drawOne('c-surv-evo'); }
+function setEvo(i){ evoIdx=i; buildEvoBtns(); const e=EVO[i]; document.getElementById('evo-cv').style.height=survH(trimSurv(e.rows).length)+'px'; drawOne('c-surv-evo'); }
 function showSurvGroup(g, btn){ document.querySelectorAll('.sgroup').forEach(el=>el.classList.remove('active')); document.getElementById('sgroup-'+g).classList.add('active'); document.querySelectorAll('#stabs .rtab').forEach(b=>b.classList.remove('active')); if(btn) btn.classList.add('active'); if(g==='evo') setEvo(evoIdx); else renderCharts(); }
 const NOLABEL = new Set([]);
 let chartObjs = {};

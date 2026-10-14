@@ -28,7 +28,8 @@
   .wh h2 { font-size: 20px; font-weight: 700; color: var(--g); letter-spacing: -0.01em; line-height: 1; }
   .wh-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
   .wh-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: #1A9FCC; text-transform: uppercase; line-height: 1; }
-  .wh-sub { font-size: 10px; font-weight: 300; color: #969696; line-height: 1.3; white-space: nowrap; }
+  .wh-report { font-size: 12px; font-weight: 300; color: #969696; line-height: 1.3; margin-top: 6px; }
+.wh-sub { font-size: 10px; font-weight: 300; color: #969696; line-height: 1.3; white-space: nowrap; }
 
   /* TABS */
   .mfo-tabs { display: flex; gap: 5px; flex-wrap: wrap; margin: 0 0 1.25rem; padding-bottom: 1.1rem; align-items: center; }
@@ -313,7 +314,10 @@
 <div class="w-inner">
 
   <div class="wh">
-    <h2>FSR Tracker</h2>
+    <div class="wh-title">
+      <h2>FSR Tracker</h2>
+      <div class="wh-report">Fed - Financial Stability Report</div>
+    </div>
     <div class="wh-meta">
       <span class="wh-tag">Información Pública</span>
       <span class="wh-sub">Periodicidad: semestral</span>
@@ -501,21 +505,25 @@
           <div class="chart-top"><div class="chart-title">10Y Treasury term premium</div></div>
           <div class="chart-unit">Model-based estimate, pp</div>
           <div class="cv" style="height:250px"><canvas id="c-tp"></canvas></div>
+          <div class="ctake">Ticked up to <b>0,67pp</b>, just <b>above its long-run median</b> (0,54), as investors demand more compensation for holding long-term Treasuries.</div>
         </div>
         <div class="chart-box wide">
           <div class="chart-top"><div class="chart-title">Corporate bond spreads</div></div>
           <div class="chart-unit">Option-adjusted spread over Treasuries, pp · HY right scale, BBB left scale</div>
           <div class="cv" style="height:250px"><canvas id="c-sp"></canvas></div>
+          <div class="ctake">HY at <b>~3pp</b> and BBB at <b>~1pp</b> remain at the <b>low end</b> of their range; only speculative-grade tech widened notably.</div>
         </div>
         <div class="chart-box wide">
           <div class="chart-top"><div class="chart-title">S&amp;P 500 forward price-to-earnings ratio</div></div>
           <div class="chart-unit">Ratio, monthly · dashed = median since 1990</div>
           <div class="cv" style="height:250px"><canvas id="c-pe"></canvas></div>
+          <div class="ctake">At <b>~21x</b> the P/E fell from its October peak (~23x) but sits near the <b>80th percentile</b> of its history, well above the 16x median.</div>
         </div>
         <div class="chart-box wide">
           <div class="chart-top"><div class="chart-title">Equity premium</div></div>
           <div class="chart-unit">Fwd E/P minus real 10Y yield, pp</div>
           <div class="cv" style="height:250px"><canvas id="c-ep"></canvas></div>
+          <div class="ctake">At <b>2,9pp</b>, compensation for equity risk is near a <b>20-year low</b> (median 4,6pp).</div>
         </div>
       </div>
     </div>
@@ -526,16 +534,19 @@
           <div class="chart-top"><div class="chart-title">Business and household debt-to-GDP</div></div>
           <div class="chart-unit">Ratio, quarterly</div>
           <div class="cv" style="height:250px"><canvas id="c-debt"></canvas></div>
+          <div class="ctake">Both ratios keep falling: total private debt relative to GDP is at its lowest since the <b>early 2000s</b>. Business debt stays high relative to its history.</div>
         </div>
         <div class="chart-box wide">
           <div class="chart-top"><div class="chart-title">Hedge fund leverage</div></div>
           <div class="chart-unit">Mean ratio, quarterly</div>
           <div class="cv" style="height:250px"><canvas id="c-hf"></canvas></div>
+          <div class="ctake">Gross leverage at <b>~9,8x</b>, a record, and skewed to the largest funds.</div>
         </div>
         <div class="chart-box wide">
           <div class="chart-top"><div class="chart-title">Bank securities fair value gains/losses</div></div>
           <div class="chart-unit">AFS + HTM, billions of dollars, semiannual</div>
           <div class="cv" style="height:250px"><canvas id="c-fv"></canvas></div>
+          <div class="ctake">Losses narrowed to <b>~$300 bn</b> from ~$690 bn, still sensitive to long rates.</div>
         </div>
       </div>
     </div>
@@ -546,21 +557,25 @@
           <div class="chart-top"><div class="chart-title">Private credit market</div></div>
           <div class="chart-unit">Bars: total, $ bn (right) · lines: share of debt, % (left)</div>
           <div class="cv" style="height:250px"><canvas id="c-pc"></canvas></div>
+          <div class="ctake">Up ~7x since 2012 to <b>~$1,4 tn</b>: about <b>10%</b> of nonfinancial corporate debt and a <b>third</b> of below-investment-grade debt.</div>
         </div>
         <div class="chart-box wide">
           <div class="chart-top"><div class="chart-title">Runnable money-like liabilities</div></div>
           <div class="chart-unit">Percent of GDP, quarterly</div>
           <div class="cv" style="height:250px"><canvas id="c-run"></canvas></div>
+          <div class="ctake">At <b>~87% of GDP</b>, runnables are in the middle of their historical distribution; instruments prone to market freezes keep shrinking as a share.</div>
         </div>
         <div class="chart-box wide">
           <div class="chart-top"><div class="chart-title">Money market fund assets</div></div>
           <div class="chart-unit">Trillions of dollars, monthly</div>
           <div class="cv" style="height:250px"><canvas id="c-mmf"></canvas></div>
+          <div class="ctake"><b>$7,9 tn</b> (from $7,2 tn a year earlier), driven by safer government funds.</div>
         </div>
         <div class="chart-box wide">
           <div class="chart-top"><div class="chart-title">Stablecoin market cap</div></div>
           <div class="chart-unit">Billions of dollars, daily</div>
           <div class="cv" style="height:250px"><canvas id="c-stab"></canvas></div>
+          <div class="ctake">Record <b>~$320 bn</b>, but growth slowed as crypto prices fell.</div>
         </div>
       </div>
     </div>
